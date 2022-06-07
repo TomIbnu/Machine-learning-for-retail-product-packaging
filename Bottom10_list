@@ -1,0 +1,12 @@
+library(arules)
+
+dataset <- read.transactions(file="https://storage.googleapis.com/dqlab-dataset/transaksi_dqlab_retail.tsv", format="single", sep="\t", cols=c(1,2), skip=1)
+
+data_bottom <- itemFrequency(dataset, type="absolute")
+
+data_bottom <- sort(data_bottom, decreasing=FALSE)[1:10]
+
+data_bottom <- data.frame("Nama.Produk"=names(data_bottom), "Jumlah"=data_bottom, row.names=NULL)
+
+write.csv(data_bottom, file="bottom10_item_retail.txt", sep=",")
+#this syntax will generate bottom10_item_retail.txt in Rstudio
